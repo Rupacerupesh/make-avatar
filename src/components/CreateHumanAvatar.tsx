@@ -20,36 +20,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Separator } from "@radix-ui/react-separator";
 import { useState } from "react";
-import {
-  animalEyesKeys,
-  animalEyesOptions,
-  animalEyesViewPort,
-} from "./animal-shapes/animal-eyes";
-import ChangeFeature from "./ChangeFeature";
-import {
-  AnimalAvatarStateInterface,
-  HumanAvatarStateInterface,
-} from "@/lib/types";
-import {
-  animalEarsKeys,
-  animalEarsOptions,
-  animalEarsViewPort,
-  animalEyebrowsKeys,
-  animalEyebrowsOptions,
-  animalEyeBrowsViewPort,
-  animalFaceKeys,
-  animalHairKeys,
-  animalHairOptions,
-  animalHairViewPort,
-  animalMuzzleKeys,
-  animalMuzzleOptions,
-  animalMuzzleViewPort,
-  animalPatternsKeys,
-  animalPatternsOptions,
-  animalPatternsViewPort,
-} from "./animal-shapes";
-import RenderAnimalAvatar from "./RenderAnimalAvatar";
-import { avatarColors, backgroundColors } from "./animal-shapes/animal-colors";
+import { HumanAvatarStateInterface } from "@/lib/types";
 import {
   humanClothesKeys,
   humanClothesOptions,
@@ -69,12 +40,11 @@ import {
 } from "./human-shapes";
 import RenderHumanAvatar from "./RenderHumanAvatar";
 import ChangeFeatureHuman from "./ChangeFeatureHuman";
-
-const BackgroundOptions = [
-  { type: "circle", Icon: CircleIcon },
-  { type: "square", Icon: SquareIcon },
-  { type: "none", Icon: BanIcon },
-];
+import {
+  backgroundColors,
+  humanClothesColors,
+  humanSkinColors,
+} from "@/lib/colors";
 
 const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
@@ -86,9 +56,15 @@ const CreateHumanAvatar = () => {
     humanEyes: humanEyesKeys[0],
     humanHair: humanHairKeys[0],
     humanMouth: humanMouthKeys[0],
-    humanAvatarColor: "red",
-    humanBgColor: "black",
-    humanClothesColor: "blue",
+    humanAvatarColor:
+      humanSkinColors[getRandomNumberFromArrayLength(humanSkinColors.length)],
+
+    humanBgColor:
+      backgroundColors[getRandomNumberFromArrayLength(backgroundColors.length)],
+    humanClothesColor:
+      humanClothesColors[
+        getRandomNumberFromArrayLength(humanClothesColors.length)
+      ],
   });
 
   const randomShuffle = () => {
@@ -113,11 +89,11 @@ const CreateHumanAvatar = () => {
           getRandomNumberFromArrayLength(backgroundColors.length)
         ],
       humanClothesColor:
-        backgroundColors[
-          getRandomNumberFromArrayLength(backgroundColors.length)
+        humanClothesColors[
+          getRandomNumberFromArrayLength(humanClothesColors.length)
         ],
       humanAvatarColor:
-        avatarColors[getRandomNumberFromArrayLength(avatarColors.length)],
+        humanSkinColors[getRandomNumberFromArrayLength(humanSkinColors.length)],
     });
   };
 

@@ -61,7 +61,7 @@ const ChangeFeatureHuman: React.FC<ChangeFeatureHumanProps> = ({
         >
           {label === "Cloth" ? (
             <HumanClothComponent
-              clothKey={currentValue as HumanClothesOptionsKeysType}
+              clothKey={option as HumanClothesOptionsKeysType}
               color={color}
             />
           ) : (

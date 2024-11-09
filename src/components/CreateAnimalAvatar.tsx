@@ -46,7 +46,7 @@ import {
   animalPatternsViewPort,
 } from "./animal-shapes";
 import RenderAnimalAvatar from "./RenderAnimalAvatar";
-import { avatarColors, backgroundColors } from "./animal-shapes/animal-colors";
+import { animalAvatarColors, backgroundColors } from "@/lib/colors";
 
 const BackgroundOptions = [
   { type: "circle", Icon: CircleIcon },
@@ -69,7 +69,9 @@ const CreateAnimalAvatar = () => {
     bgColor:
       backgroundColors[getRandomNumberFromArrayLength(backgroundColors.length)],
     avatarColor:
-      avatarColors[getRandomNumberFromArrayLength(avatarColors.length)],
+      animalAvatarColors[
+        getRandomNumberFromArrayLength(animalAvatarColors.length)
+      ],
     bgType: "circle",
   });
 
@@ -99,7 +101,9 @@ const CreateAnimalAvatar = () => {
           getRandomNumberFromArrayLength(backgroundColors.length)
         ],
       avatarColor:
-        avatarColors[getRandomNumberFromArrayLength(avatarColors.length)],
+        animalAvatarColors[
+          getRandomNumberFromArrayLength(animalAvatarColors.length)
+        ],
       bgType: "circle",
     });
   };
