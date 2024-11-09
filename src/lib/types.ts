@@ -7,6 +7,14 @@ import {
   animalMuzzleOptions,
   animalPatternsOptions,
 } from "@/components/animal-shapes";
+import {
+  HumanClothesOptionsKeysType,
+  HumanEyebrowsOptionsKeysType,
+  HumanEyesOptionsKeysType,
+  HumanHairOptionsKeysType,
+  HumanMouthOptionsKeysType,
+} from "@/components/human-shapes";
+import { FC } from "react";
 
 export type AnimalEyesOptionsKeysType = keyof typeof animalEyesOptions;
 export type AnimalHairOptionsKeysType = keyof typeof animalHairOptions;
@@ -20,6 +28,10 @@ export type ShapeOptionType = {
   [key: string]: (color: string) => string;
 };
 
+export type HumanShapeOptionType = {
+  [key: string]: JSX.Element | FC<{ color: string }>;
+};
+
 export interface AnimalAvatarStateInterface {
   avatarColor: string;
   bgColor: string;
@@ -31,4 +43,15 @@ export interface AnimalAvatarStateInterface {
   animalFace: AnimalFaceOptionsKeysType;
   animalMuzzle: AnimalMuzzleOptionsKeysType;
   animalPatterns: AnimalPatternsOptionsKeysType;
+}
+
+export interface HumanAvatarStateInterface {
+  humanClothes: HumanClothesOptionsKeysType;
+  humanEyes: HumanEyesOptionsKeysType;
+  humanMouth: HumanMouthOptionsKeysType;
+  humanEyebrows: HumanEyebrowsOptionsKeysType;
+  humanHair: HumanHairOptionsKeysType;
+  humanAvatarColor: string;
+  humanBgColor: string;
+  humanClothesColor: string;
 }
