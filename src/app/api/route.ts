@@ -30,7 +30,6 @@ import {
   humanSkinColors,
 } from "@/lib/colors";
 import { createSvg, createBackground } from "@/lib/svg";
-import { AnimalAvatarStateInterface } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
@@ -67,8 +66,8 @@ const generateAnimalAvatar = (features: any): string => {
   if (features.ears && animalEarsKeys.includes(features.ears)) {
     avatarState.animalEars = features.ears;
   }
-  if (features.eyeBrows && animalEyebrowsKeys.includes(features.eyeBrows)) {
-    avatarState.animalEyebrows = features.eyeBrows;
+  if (features.eyebrows && animalEyebrowsKeys.includes(features.eyebrows)) {
+    avatarState.animalEyebrows = features.eyebrows;
   }
 
   if (features.muzzle && animalMuzzleKeys.includes(features.muzzle)) {
@@ -133,8 +132,8 @@ const generateHumanAvatar = async (features: any): Promise<Buffer> => {
   if (features.hair && humanHairKeys.includes(features.hair)) {
     avatarState.humanHair = features.hair;
   }
-  if (features.eyeBrows && humanEyebrowsKeys.includes(features.eyeBrows)) {
-    avatarState.humanEyebrows = features.eyeBrows;
+  if (features.eyebrows && humanEyebrowsKeys.includes(features.eyebrows)) {
+    avatarState.humanEyebrows = features.eyebrows;
   }
 
   if (features.cloth && humanClothesKeys.includes(features.cloth)) {
