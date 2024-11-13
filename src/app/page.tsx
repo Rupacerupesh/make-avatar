@@ -3,7 +3,6 @@ import CreateAnimalAvatar from "@/components/CreateAnimalAvatar";
 import RenderNamedAnimalAvatar from "@/components/RenderNamedAnimalAvatar";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { useState } from "react";
 
 const EXAMPLE_NAMES = [

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Terminal } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { websiteUrl } from "@/lib/const";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function ApiDocsPageWithSidebar() {
   return (
@@ -66,26 +67,43 @@ export default function ApiDocsPageWithSidebar() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-medium">type</TableCell>
+                    <TableCell className="font-bold">type</TableCell>
                     <TableCell>string</TableCell>
                     <TableCell>animal</TableCell>
                     <TableCell>animal, human</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-medium">response</TableCell>
+                    <TableCell className="font-bold">response</TableCell>
                     <TableCell>string</TableCell>
                     <TableCell>svg</TableCell>
                     <TableCell>svg, png</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-medium">size</TableCell>
+                    <TableCell className="font-bold">size</TableCell>
                     <TableCell>integer</TableCell>
                     <TableCell>200</TableCell>
                     <TableCell>Any integer</TableCell>
                   </TableRow>
+                  <TableRow>
+                    <TableCell className="font-bold">name</TableCell>
+                    <TableCell>string</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>Unique Id for the avatar</TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </div>
+          </section>
+
+          <section className="mb-8">
+            <Alert>
+              <Terminal className="h-4 w-4" />
+              <AlertTitle>Note !</AlertTitle>
+              <AlertDescription>
+                A unique name will consistently generate the same fixed avatar.
+                If you add name, all the other query params will be discarded.
+              </AlertDescription>
+            </Alert>
           </section>
         </main>
       </div>

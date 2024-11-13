@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Terminal } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Table,
@@ -20,6 +20,7 @@ import {
   humanMouthKeys,
 } from "@/components/human-shapes";
 import { websiteUrl } from "@/lib/const";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function ApiDocsPageWithSidebar() {
   const features = [
@@ -115,12 +116,29 @@ export default function ApiDocsPageWithSidebar() {
                       </TableCell>
                     </TableRow>
                   ))}
+
+                  <TableRow>
+                    <TableCell className="font-bold">name</TableCell>
+                    <TableCell>string</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>Unique Id for the avatar</TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </div>
           </section>
-
           <section className="mb-8">
+            <Alert>
+              <Terminal className="h-4 w-4" />
+              <AlertTitle>Note !</AlertTitle>
+              <AlertDescription>
+                A unique name will consistently generate the same fixed avatar.
+                If you add name, all the other query params will be discarded.
+              </AlertDescription>
+            </Alert>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-semibold mb-4">Examples</h2>
             <div className="space-y-4">
               <div>

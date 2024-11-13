@@ -1,5 +1,15 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { AnimalAvatarStateInterface } from "./types";
+import {
+  animalEarsKeys,
+  animalEyebrowsKeys,
+  animalEyesKeys,
+  animalHairKeys,
+  animalMuzzleKeys,
+  animalPatternsKeys,
+} from "@/components/animal-shapes";
+import { animalAvatarColors, backgroundColors } from "./colors";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -32,3 +42,48 @@ export function getSecondRandomNumber(randomNumber: number, max: number) {
 
   return secondRandom;
 }
+
+export const generateAvatarStateFromName = (
+  name: string
+): AnimalAvatarStateInterface => {
+  const randomNumber = seedRandomNumberFromString(name);
+
+  return {
+    animalEars:
+      animalEarsKeys[
+        getSecondRandomNumber(randomNumber, animalEarsKeys.length)
+      ],
+
+    animalEyebrows:
+      animalEyebrowsKeys[
+        getSecondRandomNumber(randomNumber, animalEyebrowsKeys.length)
+      ],
+    animalFace: "default",
+    animalEyes:
+      animalEyesKeys[
+        getSecondRandomNumber(randomNumber, animalEyesKeys.length)
+      ],
+    animalHair:
+      animalHairKeys[
+        getSecondRandomNumber(randomNumber, animalHairKeys.length)
+      ],
+    animalMuzzle:
+      animalMuzzleKeys[
+        getSecondRandomNumber(randomNumber, animalMuzzleKeys.length)
+      ],
+    animalPatterns:
+      animalPatternsKeys[
+        getSecondRandomNumber(randomNumber, animalPatternsKeys.length)
+      ],
+
+    avatarColor:
+      animalAvatarColors[
+        getSecondRandomNumber(randomNumber, animalAvatarColors.length)
+      ],
+    bgColor:
+      backgroundColors[
+        getSecondRandomNumber(randomNumber, backgroundColors.length)
+      ],
+    bgType: "circle",
+  };
+};

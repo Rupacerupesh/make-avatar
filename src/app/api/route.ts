@@ -23,55 +23,46 @@ import {
   humanEyebrowsKeys,
 } from "@/components/human-shapes";
 import RenderHumanAvatar from "@/components/RenderHumanAvatar";
+import RenderNamedHumanAvatar from "@/components/RenderNamedHumanAvatar";
 import {
   backgroundColors,
   animalAvatarColors,
   humanClothesColors,
   humanSkinColors,
 } from "@/lib/colors";
+import { defaultAnimalAvatarState } from "@/lib/const";
 import { createSvg, createBackground } from "@/lib/svg";
+import { AnimalAvatarStateInterface } from "@/lib/types";
+import { generateAvatarStateFromName } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
 const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
 
-const defaultState = {
-  animalEyes: animalEyesKeys[0],
-  animalHair: animalHairKeys[0],
-  animalEars: animalEarsKeys[0],
-  animalEyebrows: animalEyebrowsKeys[0],
-  animalFace: animalFaceKeys[0],
-  animalMuzzle: animalMuzzleKeys[0],
-  animalPatterns: animalPatternsKeys[0],
-  bgColor:
-    backgroundColors[getRandomNumberFromArrayLength(backgroundColors.length)],
-  avatarColor:
-    animalAvatarColors[
-      getRandomNumberFromArrayLength(animalAvatarColors.length)
-    ],
-  bgType: "circle",
-};
-
 const generateAnimalAvatar = (features: any): string => {
-  let avatarState = { ...defaultState };
+  let avatarState: AnimalAvatarStateInterface = { ...defaultAnimalAvatarState };
 
-  // Check if each feature key exists in the features object
-  if (features.eyes && animalEyesKeys.includes(features.eyes)) {
-    avatarState.animalEyes = features.eyes;
-  }
-  if (features.hair && animalHairKeys.includes(features.hair)) {
-    avatarState.animalHair = features.hair;
-  }
-  if (features.ears && animalEarsKeys.includes(features.ears)) {
-    avatarState.animalEars = features.ears;
-  }
-  if (features.eyebrows && animalEyebrowsKeys.includes(features.eyebrows)) {
-    avatarState.animalEyebrows = features.eyebrows;
-  }
+  if (features.name) {
+    avatarState = generateAvatarStateFromName(features.name);
+  } else {
+    // Check if each feature key exists in the features object
+    if (features.eyes && animalEyesKeys.includes(features.eyes)) {
+      avatarState.animalEyes = features.eyes;
+    }
+    if (features.hair && animalHairKeys.includes(features.hair)) {
+      avatarState.animalHair = features.hair;
+    }
+    if (features.ears && animalEarsKeys.includes(features.ears)) {
+      avatarState.animalEars = features.ears;
+    }
+    if (features.eyebrows && animalEyebrowsKeys.includes(features.eyebrows)) {
+      avatarState.animalEyebrows = features.eyebrows;
+    }
 
-  if (features.muzzle && animalMuzzleKeys.includes(features.muzzle)) {
-    avatarState.animalMuzzle = features.muzzle;
+    if (features.muzzle && animalMuzzleKeys.includes(features.muzzle)) {
+      avatarState.animalMuzzle = features.muzzle;
+    }
   }
 
   if (
@@ -101,6 +92,14 @@ const generateAnimalAvatar = (features: any): string => {
 };
 
 const generateHumanAvatar = async (features: any): Promise<Buffer> => {
+  if (features.name) {
+    const ReactDOMServer = (await import("react-dom/server")).default;
+    const svg = ReactDOMServer.renderToString(
+      RenderNamedHumanAvatar({ name: features.name })
+    );
+    return Buffer.from(svg);
+  }
+
   let avatarState = {
     humanClothes:
       humanClothesKeys[getRandomNumberFromArrayLength(humanClothesKeys.length)],

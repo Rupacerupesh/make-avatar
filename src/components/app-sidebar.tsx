@@ -68,6 +68,9 @@ export function AppSidebar() {
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton>Patterns</SidebarMenuSubButton>
               </SidebarMenuSubItem>
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton>Name</SidebarMenuSubButton>
+              </SidebarMenuSubItem>
             </SidebarMenuSub>
           </SidebarMenuItem>
 
@@ -94,6 +97,9 @@ export function AppSidebar() {
               </SidebarMenuSubItem>
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton>Hair</SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton>Name</SidebarMenuSubButton>
               </SidebarMenuSubItem>
             </SidebarMenuSub>
           </SidebarMenuItem>
