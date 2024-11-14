@@ -1,93 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export default function NavMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   const pathname = usePathname();
 
   const showSidebar = pathname.startsWith("/docs"); // Pages to show sidebar
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const [isInExamplesSection, setIsInExamplesSection] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const examplesSection = document.getElementById("examples");
+      if (examplesSection) {
+        const rect = examplesSection.getBoundingClientRect();
+        setIsInExamplesSection(
+          rect.top <= window.innerHeight && rect.bottom >= 0
+        );
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Run once on mount to check the initial position
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   if (showSidebar) return null;
 
   return (
-    <nav className="bg-gradient-to-r from-amber-300 to-sky-500 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-end h-16">
-          <div className="hidden md:block">
-            <div className="flex items-baseline space-x-6">
-              <NavLink href="/docs">Docs</NavLink>
-              <NavLink href="#examples">Examples</NavLink>
-              <NavLink href="#how-it-works">How it works</NavLink>
-            </div>
-          </div>
-          <div className="md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-200 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition duration-150 ease-in-out"
-              aria-expanded={isOpen}
+    <nav
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-gray-50 shadow-md" : ""
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-2xl font-bold text-emerald-500">
+              MAKE-AVATAR
+            </span>
+          </Link>
+          <div className="hidden md:flex space-x-8">
+            <Link
+              href={`/docs`}
+              className={`text-sm font-medium transition-colors duration-300 pb-2 text-gray-600 hover:text-emerald-500`}
             >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? (
-                <X className="block h-8 w-8" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-8 w-8" aria-hidden="true" />
-              )}
-            </button>
+              Docs
+            </Link>
+
+            <Link
+              href={`#examples`}
+              className={`text-sm font-medium transition-colors duration-300 pb-2 text-gray-600 hover:text-emerald-500 ${
+                isInExamplesSection
+                  ? "text-emerald-500 border-b-2 border-emerald-500"
+                  : ""
+              }`}
+            >
+              Examples
+            </Link>
           </div>
         </div>
       </div>
-
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-4 pt-4 pb-4 space-y-2 sm:px-6 bg-sky-600">
-            <NavLink href="/docs" mobile>
-              Docs
-            </NavLink>
-            <NavLink href="#examples" mobile>
-              Examples
-            </NavLink>
-            <NavLink href="#how-it-works" mobile>
-              How it works
-            </NavLink>
-          </div>
-        </div>
-      )}
     </nav>
-  );
-}
-
-function NavLink({
-  href,
-  children,
-  mobile = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  mobile?: boolean;
-}) {
-  const baseClasses =
-    "text-white hover:bg-sky-300 hover:text-white transition duration-150 ease-in-out";
-  const desktopClasses = "px-4 py-3 rounded-md text-lg font-medium";
-  const mobileClasses = "block px-4 py-3 rounded-md text-lg font-medium";
-
-  return (
-    <Link
-      href={href}
-      className={`${baseClasses} ${
-        mobile ? mobileClasses : desktopClasses
-      } relative group`}
-    >
-      {children}
-      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
-    </Link>
   );
 }
