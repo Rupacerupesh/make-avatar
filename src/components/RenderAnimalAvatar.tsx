@@ -27,7 +27,7 @@ const RenderAnimalAvatar: React.FC<RenderAnimalAvatarProps> = ({
   ];
 
   const gemeratedSVG = createSvg(
-    200,
+    130,
     avatarState.bgType !== "none"
       ? createBackground(avatarState.bgType === "circle", avatarState.bgColor)
       : "",

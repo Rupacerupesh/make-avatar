@@ -36,8 +36,8 @@ interface RenderAvatarProps {
 const RenderHumanAvatar: React.FC<RenderAvatarProps> = ({ avatarState }) => {
   return (
     <svg
-      width="264px"
-      height="280px"
+      width="132px"
+      height="140px"
       viewBox="0 0 264 280"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

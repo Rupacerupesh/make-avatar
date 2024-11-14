@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import NavMenu from "@/components/nav-menu";
 
@@ -33,11 +32,7 @@ export default function RootLayout({
       >
         <NavMenu />
 
-        <SidebarProvider>
-          <AppSidebar />
-          {children}
-          {/* <SidebarTrigger /> */}
-        </SidebarProvider>
+        <AppSidebar>{children}</AppSidebar>
       </body>
     </html>
   );
