@@ -47,6 +47,7 @@ import {
 } from "./animal-shapes";
 import RenderAnimalAvatar from "./RenderAnimalAvatar";
 import { animalAvatarColors, backgroundColors } from "@/lib/colors";
+import { generateDefaultRandomAvatarState } from "@/lib/utils";
 
 const BackgroundOptions = [
   { type: "circle", Icon: CircleIcon },
@@ -58,22 +59,9 @@ const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
 
 const CreateAnimalAvatar = () => {
-  const [state, setState] = useState<AnimalAvatarStateInterface>({
-    animalEyes: animalEyesKeys[0],
-    animalHair: animalHairKeys[0],
-    animalEars: animalEarsKeys[0],
-    animalEyebrows: animalEyebrowsKeys[0],
-    animalFace: animalFaceKeys[0],
-    animalMuzzle: animalMuzzleKeys[0],
-    animalPatterns: animalPatternsKeys[0],
-    bgColor:
-      backgroundColors[getRandomNumberFromArrayLength(backgroundColors.length)],
-    avatarColor:
-      animalAvatarColors[
-        getRandomNumberFromArrayLength(animalAvatarColors.length)
-      ],
-    bgType: "circle",
-  });
+  const [state, setState] = useState<AnimalAvatarStateInterface>(
+    generateDefaultRandomAvatarState()
+  );
 
   const randomShuffle = () => {
     setState({

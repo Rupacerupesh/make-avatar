@@ -30,10 +30,12 @@ import {
   humanClothesColors,
   humanSkinColors,
 } from "@/lib/colors";
-import { defaultAnimalAvatarState } from "@/lib/const";
 import { createSvg, createBackground } from "@/lib/svg";
 import { AnimalAvatarStateInterface } from "@/lib/types";
-import { generateAvatarStateFromName } from "@/lib/utils";
+import {
+  generateAvatarStateFromName,
+  generateDefaultRandomAvatarState,
+} from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
@@ -41,7 +43,9 @@ const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
 
 const generateAnimalAvatar = (features: any): string => {
-  let avatarState: AnimalAvatarStateInterface = { ...defaultAnimalAvatarState };
+  let avatarState: AnimalAvatarStateInterface = {
+    ...generateDefaultRandomAvatarState(),
+  };
 
   if (features.name) {
     avatarState = generateAvatarStateFromName(features.name);

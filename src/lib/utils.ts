@@ -5,6 +5,7 @@ import {
   animalEarsKeys,
   animalEyebrowsKeys,
   animalEyesKeys,
+  animalFaceKeys,
   animalHairKeys,
   animalMuzzleKeys,
   animalPatternsKeys,
@@ -83,6 +84,38 @@ export const generateAvatarStateFromName = (
     bgColor:
       backgroundColors[
         getSecondRandomNumber(randomNumber, backgroundColors.length)
+      ],
+    bgType: "circle",
+  };
+};
+
+const getRandomNumberFromArrayLength = (length: number): number =>
+  Math.floor(Math.random() * length);
+
+export const generateDefaultRandomAvatarState = () => {
+  return {
+    animalEyes:
+      animalEyesKeys[getRandomNumberFromArrayLength(animalEyesKeys.length)],
+    animalHair:
+      animalHairKeys[getRandomNumberFromArrayLength(animalHairKeys.length)],
+    animalEars:
+      animalEarsKeys[getRandomNumberFromArrayLength(animalEarsKeys.length)],
+    animalEyebrows:
+      animalEyebrowsKeys[
+        getRandomNumberFromArrayLength(animalEyebrowsKeys.length)
+      ],
+    animalFace: animalFaceKeys[0],
+    animalMuzzle:
+      animalMuzzleKeys[getRandomNumberFromArrayLength(animalMuzzleKeys.length)],
+    animalPatterns:
+      animalPatternsKeys[
+        getRandomNumberFromArrayLength(animalPatternsKeys.length)
+      ],
+    bgColor:
+      backgroundColors[getRandomNumberFromArrayLength(backgroundColors.length)],
+    avatarColor:
+      animalAvatarColors[
+        getRandomNumberFromArrayLength(animalAvatarColors.length)
       ],
     bgType: "circle",
   };
