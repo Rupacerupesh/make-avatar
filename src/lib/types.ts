@@ -35,7 +35,7 @@ export type HumanShapeOptionType = {
 export interface AnimalAvatarStateInterface {
   avatarColor: string;
   bgColor: string;
-  bgType?: string;
+  bgType: string;
   animalEyes: AnimalEyesOptionsKeysType;
   animalHair: AnimalHairOptionsKeysType;
   animalEars: AnimalEarsOptionsKeysType;

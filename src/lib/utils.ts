@@ -120,3 +120,8 @@ export const generateDefaultRandomAvatarState = () => {
     bgType: "circle",
   };
 };
+
+export const isHexCode = (str: string) => {
+  const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+  return hexRegex.test("#" + str);
+};

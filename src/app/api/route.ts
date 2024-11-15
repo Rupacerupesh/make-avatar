@@ -35,6 +35,7 @@ import { AnimalAvatarStateInterface } from "@/lib/types";
 import {
   generateAvatarStateFromName,
   generateDefaultRandomAvatarState,
+  isHexCode,
 } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
@@ -67,13 +68,21 @@ const generateAnimalAvatar = (features: any): string => {
     if (features.muzzle && animalMuzzleKeys.includes(features.muzzle)) {
       avatarState.animalMuzzle = features.muzzle;
     }
+
+    if (features.skin && isHexCode(features.skin)) {
+      avatarState.avatarColor = "#" + features.skin;
+    }
+
+    if (features.background && isHexCode(features.background)) {
+      avatarState.bgColor = "#" + features.background;
+    }
   }
 
   if (
-    features.bgType &&
-    ["circle", "none", "square"].includes(features.bgType)
+    features["background-type"] &&
+    ["circle", "none", "square"].includes(features["background-type"])
   ) {
-    avatarState.bgType = features.bgType;
+    avatarState.bgType = features["background-type"];
   }
 
   const shapes = [
@@ -145,6 +154,18 @@ const generateHumanAvatar = async (features: any): Promise<Buffer> => {
 
   if (features.mouth && humanMouthKeys.includes(features.mouth)) {
     avatarState.humanMouth = features.mouth;
+  }
+
+  if (features.skin && isHexCode(features.skin)) {
+    avatarState.humanAvatarColor = "#" + features.skin;
+  }
+
+  if (features.background && isHexCode(features.background)) {
+    avatarState.humanBgColor = "#" + features.background;
+  }
+
+  if (features["clothes-color"] && isHexCode(features["clothes-color"])) {
+    avatarState.humanClothesColor = "#" + features["clothes-color"];
   }
 
   const ReactDOMServer = (await import("react-dom/server")).default;

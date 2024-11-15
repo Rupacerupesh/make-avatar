@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  BanIcon,
-  ChevronDown,
-  CircleIcon,
-  Download,
-  Eye,
-  Link2,
-  ShuffleIcon,
-  SquareIcon,
-} from "lucide-react";
+import { ChevronDown, Download, Eye, Link2, ShuffleIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { ColorPicker } from "./ui/color-picker";
 import {
@@ -19,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Separator } from "@radix-ui/react-separator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HumanAvatarStateInterface } from "@/lib/types";
 import {
   humanClothesKeys,
@@ -49,6 +40,27 @@ import {
 const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
 
+const generateUrl = (
+  baseUrl: string,
+  params: Record<string, string>
+): string => {
+  const queryString = Object.entries(params)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join("&");
+  return `${baseUrl}${queryString}`;
+};
+
+const handleDownload = (url: string) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "image.png";
+  link.click();
+};
+
+const handleOpenLink = (url: string) => {
+  window.open(url, "_blank");
+};
+
 const CreateHumanAvatar = () => {
   const [state, setState] = useState<HumanAvatarStateInterface>({
     humanClothes: humanClothesKeys[0],
@@ -66,6 +78,16 @@ const CreateHumanAvatar = () => {
         getRandomNumberFromArrayLength(humanClothesColors.length)
       ],
   });
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null; // or a loading state
+
+  console.log({ state });
 
   const randomShuffle = () => {
     setState({
@@ -103,6 +125,17 @@ const CreateHumanAvatar = () => {
       [key]: index,
     }));
   };
+
+  const url = generateUrl("/api?type=human&", {
+    cloth: state.humanClothes,
+    eyes: state.humanEyes,
+    mouth: state.humanMouth,
+    eyebows: state.humanEyebrows,
+    hair: state.humanHair,
+    background: state.humanBgColor.replace("#", ""),
+    skin: state.humanAvatarColor.replace("#", ""),
+    "clothes-color": state.humanClothesColor.replace("#", ""),
+  });
 
   return (
     <div className="w-full max-w-md mx-auto space-y-6 p-4">
@@ -155,8 +188,12 @@ const CreateHumanAvatar = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Download PNG</DropdownMenuItem>
-                  <DropdownMenuItem>Download SVG</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDownload(url)}>
+                    Download PNG
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDownload(url)}>
+                    Download SVG
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -164,7 +201,7 @@ const CreateHumanAvatar = () => {
                 <Link2 className="h-6 w-6" />
               </Button>
 
-              <Button variant="outline">
+              <Button variant="outline" onClick={() => handleOpenLink(url)}>
                 <Eye className="h-6 w-6" />
               </Button>
             </div>

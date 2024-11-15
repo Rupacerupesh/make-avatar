@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Separator } from "@radix-ui/react-separator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   animalEyesKeys,
   animalEyesOptions,
@@ -103,6 +103,47 @@ const CreateAnimalAvatar = () => {
     }));
   };
 
+  const generateUrl = (
+    baseUrl: string,
+    params: Record<string, string>
+  ): string => {
+    const queryString = Object.entries(params)
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join("&");
+    return `${baseUrl}${queryString}`;
+  };
+
+  const url = generateUrl("/api" + "?", {
+    eyes: state.animalEyes,
+    hair: state.animalHair,
+    ears: state.animalEars,
+    eyebrows: state.animalEyebrows,
+    muzzle: state.animalMuzzle,
+    patterns: state.animalPatterns,
+    background: state.bgColor.replace("#", ""),
+    skin: state.avatarColor.replace("#", ""),
+    "background-type": state.bgType,
+  });
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "image.png";
+    link.click();
+  };
+
+  const handleOpenLink = () => {
+    window.open(url, "_blank");
+  };
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null; // or a loading state
+
   return (
     <div className="w-full max-w-md mx-auto space-y-6 p-4">
       <div className="space-y-1">
@@ -163,8 +204,12 @@ const CreateAnimalAvatar = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Download PNG</DropdownMenuItem>
-                  <DropdownMenuItem>Download SVG</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleDownload}>
+                    Download PNG
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleDownload}>
+                    Download SVG
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -172,7 +217,7 @@ const CreateAnimalAvatar = () => {
                 <Link2 className="h-6 w-6" />
               </Button>
 
-              <Button variant="outline">
+              <Button variant="outline" onClick={handleOpenLink}>
                 <Eye className="h-6 w-6" />
               </Button>
             </div>
