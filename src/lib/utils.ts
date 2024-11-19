@@ -125,3 +125,21 @@ export const isHexCode = (str: string) => {
   const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
   return hexRegex.test("#" + str);
 };
+
+export const handleDownload = (url: string, fileName: string): void => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link); // Append to the DOM
+  link.click();
+  document.body.removeChild(link); // Remove from the DOM
+};
+
+export const handleDownloadSVG = (url: string): void => {
+  handleDownload(url, "image.svg");
+};
+
+export const handleDownloadPNG = (url: string): void => {
+  console.log({ url });
+  handleDownload(`${url}&response=png`, "image.png");
+};

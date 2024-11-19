@@ -47,7 +47,11 @@ import {
 } from "./animal-shapes";
 import RenderAnimalAvatar from "./RenderAnimalAvatar";
 import { animalAvatarColors, backgroundColors } from "@/lib/colors";
-import { generateDefaultRandomAvatarState } from "@/lib/utils";
+import {
+  generateDefaultRandomAvatarState,
+  handleDownloadPNG,
+  handleDownloadSVG,
+} from "@/lib/utils";
 
 const BackgroundOptions = [
   { type: "circle", Icon: CircleIcon },
@@ -125,13 +129,6 @@ const CreateAnimalAvatar = () => {
     "background-type": state.bgType,
   });
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "image.png";
-    link.click();
-  };
-
   const handleOpenLink = () => {
     window.open(url, "_blank");
   };
@@ -204,10 +201,10 @@ const CreateAnimalAvatar = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={handleDownload}>
+                  <DropdownMenuItem onClick={() => handleDownloadPNG(url)}>
                     Download PNG
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleDownload}>
+                  <DropdownMenuItem onClick={() => handleDownloadSVG(url)}>
                     Download SVG
                   </DropdownMenuItem>
                 </DropdownMenuContent>

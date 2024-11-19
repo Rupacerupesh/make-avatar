@@ -36,6 +36,7 @@ import {
   humanClothesColors,
   humanSkinColors,
 } from "@/lib/colors";
+import { handleDownloadPNG, handleDownloadSVG } from "@/lib/utils";
 
 const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
@@ -48,13 +49,6 @@ const generateUrl = (
     .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join("&");
   return `${baseUrl}${queryString}`;
-};
-
-const handleDownload = (url: string) => {
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "image.png";
-  link.click();
 };
 
 const handleOpenLink = (url: string) => {
@@ -86,8 +80,6 @@ const CreateHumanAvatar = () => {
   }, []);
 
   if (!isClient) return null; // or a loading state
-
-  console.log({ state });
 
   const randomShuffle = () => {
     setState({
@@ -130,7 +122,7 @@ const CreateHumanAvatar = () => {
     cloth: state.humanClothes,
     eyes: state.humanEyes,
     mouth: state.humanMouth,
-    eyebows: state.humanEyebrows,
+    eyebrows: state.humanEyebrows,
     hair: state.humanHair,
     background: state.humanBgColor.replace("#", ""),
     skin: state.humanAvatarColor.replace("#", ""),
@@ -188,10 +180,10 @@ const CreateHumanAvatar = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => handleDownload(url)}>
+                  <DropdownMenuItem onClick={() => handleDownloadPNG(url)}>
                     Download PNG
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDownload(url)}>
+                  <DropdownMenuItem onClick={() => handleDownloadSVG(url)}>
                     Download SVG
                   </DropdownMenuItem>
                 </DropdownMenuContent>
