@@ -26,10 +26,10 @@ import RenderHumanAvatar from "@/components/RenderHumanAvatar";
 import RenderNamedHumanAvatar from "@/components/RenderNamedHumanAvatar";
 import {
   backgroundColors,
-  animalAvatarColors,
   humanClothesColors,
   humanSkinColors,
 } from "@/lib/colors";
+import { defaultAavatarSize } from "@/lib/const";
 import { createSvg, createBackground } from "@/lib/svg";
 import { AnimalAvatarStateInterface } from "@/lib/types";
 import {
@@ -44,6 +44,8 @@ const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
 
 const generateAnimalAvatar = (features: any): string => {
+  let defaultSize = defaultAavatarSize;
+
   let avatarState: AnimalAvatarStateInterface = {
     ...generateDefaultRandomAvatarState(),
   };
@@ -85,6 +87,13 @@ const generateAnimalAvatar = (features: any): string => {
     avatarState.bgType = features["background-type"];
   }
 
+  if (features.size) {
+    const parsedSize = parseInt(features.size, 10); // Parse size as an integer
+    if (Number.isInteger(parsedSize) && parsedSize >= 0 && parsedSize <= 1000) {
+      defaultSize = parsedSize;
+    }
+  }
+
   const shapes = [
     animalFaceOptions[avatarState.animalFace](avatarState.avatarColor),
     animalEyesOptions[avatarState.animalEyes](avatarState.avatarColor),
@@ -95,7 +104,7 @@ const generateAnimalAvatar = (features: any): string => {
   ];
 
   return createSvg(
-    200,
+    defaultSize,
     avatarState.bgType !== "none"
       ? createBackground(avatarState.bgType === "circle", avatarState.bgColor)
       : "",
@@ -105,6 +114,8 @@ const generateAnimalAvatar = (features: any): string => {
 };
 
 const generateHumanAvatar = async (features: any): Promise<Buffer> => {
+  let defaultSize = defaultAavatarSize;
+
   if (features.name) {
     const ReactDOMServer = (await import("react-dom/server")).default;
     const svg = ReactDOMServer.renderToString(
@@ -168,8 +179,17 @@ const generateHumanAvatar = async (features: any): Promise<Buffer> => {
     avatarState.humanClothesColor = "#" + features["clothes-color"];
   }
 
+  if (features.size) {
+    const parsedSize = parseInt(features.size, 10); // Parse size as an integer
+    if (Number.isInteger(parsedSize) && parsedSize >= 0 && parsedSize <= 1000) {
+      defaultSize = parsedSize;
+    }
+  }
+
   const ReactDOMServer = (await import("react-dom/server")).default;
-  const svg = ReactDOMServer.renderToString(RenderHumanAvatar({ avatarState }));
+  const svg = ReactDOMServer.renderToString(
+    RenderHumanAvatar({ avatarState, size: defaultSize })
+  );
   return Buffer.from(svg);
 };
 

@@ -6,6 +6,7 @@ import {
   HumanEyesComponent,
   HumanMouthComponent,
 } from "./human-shapes";
+import { defaultAavatarSize } from "@/lib/const";
 
 const path1 = "react-path-1";
 const path2 = "react-path-2";
@@ -31,13 +32,17 @@ const ColorComponent: React.FC<ColorComponentProps> = (props) => {
 
 interface RenderAvatarProps {
   avatarState: HumanAvatarStateInterface;
+  size?: number;
 }
 
-const RenderHumanAvatar: React.FC<RenderAvatarProps> = ({ avatarState }) => {
+const RenderHumanAvatar: React.FC<RenderAvatarProps> = ({
+  avatarState,
+  size = defaultAavatarSize,
+}) => {
   return (
     <svg
-      width="132px"
-      height="140px"
+      width={`${size}px`}
+      height={`${size}px`}
       viewBox="0 0 264 280"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

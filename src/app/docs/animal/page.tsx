@@ -120,6 +120,13 @@ export default function ApiDocsPageWithSidebar() {
                   ))}
 
                   <TableRow>
+                    <TableCell className="font-bold">size</TableCell>
+                    <TableCell>integer</TableCell>
+                    <TableCell>140</TableCell>
+                    <TableCell>Size of the avatar</TableCell>
+                  </TableRow>
+
+                  <TableRow>
                     <TableCell className="font-bold">name</TableCell>
                     <TableCell>string</TableCell>
                     <TableCell>-</TableCell>

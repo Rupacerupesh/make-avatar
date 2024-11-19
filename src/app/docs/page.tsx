@@ -6,7 +6,6 @@ import { Copy, Terminal } from "lucide-react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -81,7 +80,7 @@ export default function ApiDocsPageWithSidebar() {
                   <TableRow>
                     <TableCell className="font-bold">size</TableCell>
                     <TableCell>integer</TableCell>
-                    <TableCell>200</TableCell>
+                    <TableCell>140</TableCell>
                     <TableCell>Any integer</TableCell>
                   </TableRow>
                   <TableRow>

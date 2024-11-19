@@ -73,6 +73,9 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
                   <SidebarMenuSubButton>Patterns</SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
+                  <SidebarMenuSubButton>Size</SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
                   <SidebarMenuSubButton>Name</SidebarMenuSubButton>
                 </SidebarMenuSubItem>
               </SidebarMenuSub>
@@ -101,6 +104,9 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton>Hair</SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton>Size</SidebarMenuSubButton>
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton>Name</SidebarMenuSubButton>

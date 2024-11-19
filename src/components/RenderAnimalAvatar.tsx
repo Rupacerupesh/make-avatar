@@ -9,6 +9,7 @@ import {
   animalHairOptions,
   animalMuzzleOptions,
 } from "./animal-shapes";
+import { defaultAavatarSize } from "@/lib/const";
 
 interface RenderAnimalAvatarProps {
   avatarState: AnimalAvatarStateInterface;
@@ -27,7 +28,7 @@ const RenderAnimalAvatar: React.FC<RenderAnimalAvatarProps> = ({
   ];
 
   const gemeratedSVG = createSvg(
-    130,
+    defaultAavatarSize,
     avatarState.bgType !== "none"
       ? createBackground(avatarState.bgType === "circle", avatarState.bgColor)
       : "",
