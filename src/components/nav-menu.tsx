@@ -49,9 +49,20 @@ export default function NavMenu() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-emerald-500">
+            <h2 className="text-5xl relative z-20 font-bold text-center text-black dark:text-white font-sans tracking-tight">
+              <div className="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
+                <div className="absolute left-0 top-[1px] bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-emerald-500 via-teal-400 to-green-400 [text-shadow:0_0_rgba(0,0,0,0.1)]">
+                  <span className="">Make avatar.</span>
+                </div>
+                <div className="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-emerald-500 via-teal-400 to-green-400 py-4">
+                  <span className="">Make avatar.</span>
+                </div>
+              </div>
+            </h2>
+
+            {/* <span className="text-2xl font-bold text-emerald-500">
               MAKE-AVATAR
-            </span>
+            </span> */}
           </Link>
           <div className="hidden md:flex space-x-8">
             <Link
