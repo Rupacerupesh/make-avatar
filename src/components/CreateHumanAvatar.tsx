@@ -37,6 +37,8 @@ import {
   humanSkinColors,
 } from "@/lib/colors";
 import { handleDownloadPNG, handleDownloadSVG } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { websiteUrl } from "@/lib/const";
 
 const getRandomNumberFromArrayLength = (length: number) =>
   Math.floor(Math.random() * length);
@@ -73,10 +75,24 @@ const CreateHumanAvatar = () => {
       ],
   });
 
+  const [isCopied, setIsCopied] = useState(false);
+
+  let timeoutId: NodeJS.Timeout;
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(url);
+    setIsCopied(true);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   if (!isClient) return null; // or a loading state
@@ -118,7 +134,7 @@ const CreateHumanAvatar = () => {
     }));
   };
 
-  const url = generateUrl("/api?type=human&", {
+  const url = generateUrl(`${websiteUrl}?type=human&`, {
     cloth: state.humanClothes,
     eyes: state.humanEyes,
     mouth: state.humanMouth,
@@ -189,9 +205,20 @@ const CreateHumanAvatar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="outline">
-                <Link2 className="h-6 w-6" />
-              </Button>
+              <Popover open={isCopied}>
+                <PopoverTrigger>
+                  <Button variant="outline" onClick={handleCopyToClipboard}>
+                    <Link2 className="h-6 w-6" />
+                  </Button>
+                </PopoverTrigger>
+
+                <PopoverContent
+                  className="w-auto h-auto p-2 text-sm font-medium"
+                  side="top"
+                >
+                  Copied!
+                </PopoverContent>
+              </Popover>
 
               <Button variant="outline" onClick={() => handleOpenLink(url)}>
                 <Eye className="h-6 w-6" />

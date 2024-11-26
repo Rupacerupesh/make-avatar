@@ -52,6 +52,9 @@ import {
   handleDownloadPNG,
   handleDownloadSVG,
 } from "@/lib/utils";
+import { websiteUrl } from "@/lib/const";
+import { Popover, PopoverContent } from "./ui/popover";
+import { PopoverTrigger } from "@radix-ui/react-popover";
 
 const BackgroundOptions = [
   { type: "circle", Icon: CircleIcon },
@@ -117,7 +120,7 @@ const CreateAnimalAvatar = () => {
     return `${baseUrl}${queryString}`;
   };
 
-  const url = generateUrl("/api" + "?", {
+  const url = generateUrl(websiteUrl + "?", {
     eyes: state.animalEyes,
     hair: state.animalHair,
     ears: state.animalEars,
@@ -133,10 +136,24 @@ const CreateAnimalAvatar = () => {
     window.open(url, "_blank");
   };
 
+  const [isCopied, setIsCopied] = useState(false);
+
+  let timeoutId: NodeJS.Timeout;
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(url);
+    setIsCopied(true);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   if (!isClient) return null; // or a loading state
@@ -210,9 +227,20 @@ const CreateAnimalAvatar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="outline">
-                <Link2 className="h-6 w-6" />
-              </Button>
+              <Popover open={isCopied}>
+                <PopoverTrigger>
+                  <Button variant="outline" onClick={handleCopyToClipboard}>
+                    <Link2 className="h-6 w-6" />
+                  </Button>
+                </PopoverTrigger>
+
+                <PopoverContent
+                  className="w-auto h-auto p-2 text-sm font-medium"
+                  side="top"
+                >
+                  Copied!
+                </PopoverContent>
+              </Popover>
 
               <Button variant="outline" onClick={handleOpenLink}>
                 <Eye className="h-6 w-6" />

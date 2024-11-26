@@ -136,10 +136,10 @@ export const handleDownload = (url: string, fileName: string): void => {
 };
 
 export const handleDownloadSVG = (url: string): void => {
-  handleDownload(url, "image.svg");
+  handleDownload(url, "make-avatar.svg");
 };
 
 export const handleDownloadPNG = (url: string): void => {
   console.log({ url });
-  handleDownload(`${url}&response=png`, "image.png");
+  handleDownload(`${url}&response=png`, "make-avatar.png");
 };
