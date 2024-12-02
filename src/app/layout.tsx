@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
 import NavMenu from "@/components/nav-menu";
 import { Analytics } from "@vercel/analytics/react";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -60,6 +61,22 @@ export default function RootLayout({
         <NavMenu />
 
         <AppSidebar>{children}</AppSidebar>
+        <footer className="bg-gray-100 py-6">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col items-end">
+              <nav className="flex space-x-4">
+                <Link
+                  href="https://github.com/Rupacerupesh/make-avatar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-emerald-500 hover:underline"
+                >
+                  GitHub
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

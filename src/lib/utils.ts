@@ -140,6 +140,5 @@ export const handleDownloadSVG = (url: string): void => {
 };
 
 export const handleDownloadPNG = (url: string): void => {
-  console.log({ url });
   handleDownload(`${url}&response=png`, "make-avatar.png");
 };

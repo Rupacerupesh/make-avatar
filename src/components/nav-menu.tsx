@@ -20,13 +20,23 @@ export default function NavMenu() {
   }, []);
 
   const [isInExamplesSection, setIsInExamplesSection] = useState(false);
+  const [isInOverviewSection, setIsInOverviewSection] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const examplesSection = document.getElementById("examples");
+
       if (examplesSection) {
         const rect = examplesSection.getBoundingClientRect();
         setIsInExamplesSection(
+          rect.top <= window.innerHeight && rect.bottom >= 0
+        );
+      }
+
+      const overviewSection = document.getElementById("overview");
+      if (overviewSection) {
+        const rect = overviewSection.getBoundingClientRect();
+        setIsInOverviewSection(
           rect.top <= window.innerHeight && rect.bottom >= 0
         );
       }
@@ -81,6 +91,17 @@ export default function NavMenu() {
               }`}
             >
               Examples
+            </Link>
+
+            <Link
+              href={`#overview`}
+              className={`text-sm font-medium transition-colors duration-300 pb-2 text-gray-600 hover:text-emerald-500 ${
+                isInOverviewSection
+                  ? "text-emerald-500 border-b-2 border-emerald-500"
+                  : ""
+              }`}
+            >
+              Overview
             </Link>
           </div>
         </div>

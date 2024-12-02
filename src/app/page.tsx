@@ -16,6 +16,7 @@ import {
   Sliders,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { ReactNode, useState } from "react";
 
 const EXAMPLE_NAMES = [
@@ -70,8 +71,9 @@ export default function Home() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-2">
               <div className="lg:w-1/2 mb-10 lg:mb-0">
                 <h2 className="text-3xl relative z-20 font-bold  text-black dark:text-white font-sans tracking-tight">
-                  Create Awesome Avatars with&nbsp;
-                  <div className="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
+                  Create Awesome Avatars with The Ultimate Avatar
+                  Generator&nbsp;
+                  <div className=" relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]">
                     <div className="absolute left-0 top-[1px] bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-emerald-500 via-teal-400 to-green-400 [text-shadow:0_0_rgba(0,0,0,0.1)]">
                       <span className="">Make avatar</span>
                     </div>
@@ -81,10 +83,14 @@ export default function Home() {
                   </div>
                 </h2>
 
-                <p className="text-xl mt-4 mb-4 text-muted-foreground ">
-                  Design unique avatars for your profiles, websites, or apps.
-                  Choose from abstract shapes to lovingly crafted characters,
-                  all customizable piece by piece or generated from a seed.
+                <p className="text-md mt-4 mb-4 text-muted-foreground ">
+                  Create stunning avatars tailored to your needs. Whether you
+                  are looking for random avatar placeholders, consistent designs
+                  based on unique IDs or seeds, or fully personalized
+                  characters, MakeAvatar has you covered. Choose from a wide
+                  range of styles—abstract shapes to detailed characters—and
+                  customize each feature or generate designs instantly from a
+                  seed. Perfect for profiles, websites, or apps
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   <FeatureItem
@@ -148,14 +154,11 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         <div className="flex w-full" id="tool">
           <CreateAnimalAvatar />
           <CreateHumanAvatar />
         </div>
-
         <Separator id="examples" />
-
         <div className="w-full flex  justify-center ">
           <div>
             <Input
@@ -164,7 +167,6 @@ export default function Home() {
             />
           </div>
         </div>
-
         <div className="flex w-full">
           <div className="w-full flex  items-center justify-center ">
             {name && <RenderNamedAnimalAvatar name={name} />}
@@ -173,7 +175,6 @@ export default function Home() {
             {name && <RenderNamedHumanAvatar name={name} />}
           </div>
         </div>
-
         <div className="flex w-full gap-8">
           <div className="w-full flex items-center justify-center">
             <div className="grid grid-cols-3 gap-8">
@@ -197,6 +198,80 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <section
+          className="mx-auto max-w-6xl px-4 py-4 text-gray-800"
+          id="overview"
+        >
+          <div className="mb-16">
+            <h3 className="mb-8 text-center text-2xl font-bold">
+              Why Choose Makeavatar ?
+            </h3>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                { title: "Formats", description: "Avatars in SVG or PNG." },
+                {
+                  title: "Customizable",
+                  description:
+                    "Endless options for every style like eyes,ears,mouth and much more",
+                },
+                {
+                  title: "Developer-Friendly",
+                  description: "Free and fast HTTP API for integration.",
+                },
+                {
+                  title: "Multiple Styles",
+                  description:
+                    "Includes human avatars and cute animal pet avatars.",
+                },
+                {
+                  title: "Size Options",
+                  description: "Customizable sizes to fit your needs.",
+                },
+              ].map((feature, index) => (
+                <div
+                  key={index}
+                  className="rounded-lg border border-gray-200 p-6 transition-shadow hover:shadow-md"
+                >
+                  <h4 className="mb-2 font-semibold ">{feature.title}</h4>
+                  <p>{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="mb-8 text-center text-2xl font-bold">
+              How It Works
+            </h3>
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="rounded-lg border border-gray-200 p-6 transition-shadow hover:shadow-md">
+                <h4 className="mb-4 font-semibold ">For Users</h4>
+                <ul className="space-y-2">
+                  <li>• Visit the website.</li>
+                  <li>• Customize your avatar.</li>
+                  <li>• Download it for free.</li>
+                </ul>
+              </div>
+              <div className="rounded-lg border border-gray-200 p-6 transition-shadow hover:shadow-md">
+                <h4 className="mb-4 font-semibold ">For Developers</h4>
+                <ul className="space-y-2">
+                  <li>• Use the API to generate avatars programmatically.</li>
+                  <li>
+                    • Explore the&nbsp;
+                    <Link
+                      href="/docs"
+                      passHref
+                      className="text-emerald-500 underline hover:text-emerald-600"
+                    >
+                      docs
+                    </Link>
+                    &nbsp;for seamless integration.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
