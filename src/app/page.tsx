@@ -117,7 +117,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="lg:w-1/2 flex justify-center items-center relative">
+              <div className="lg:w-1/2 w-full flex justify-center items-center relative">
                 <div className="relative w-full ">
                   <BackgroundBeamsWithCollision>
                     {Array.from({ length: 5 }).map((_, index) => {

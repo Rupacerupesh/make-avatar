@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Design unique, customizable animated avatars for animals and humans with Make-avatar. Change features like eyes, mouth, hair, color, and more. Download as SVG or PNG, or use our API for developers to generate dynamic avatar placeholders. Perfect for games, apps, and creative projects!",
   keywords:
-    "custom avatars, animated avatars, animal avatars, human avatars, avatar API",
+    "custom avatars, animated avatars, animal avatars, human avatars, avatar API, avatar placeholders, deterministic avatars, random avatars, avatar customization, free avatars, dynamic avatars, profile avatars, creative projects, game avatars, app avatars",
   icons: {
     icon: "/favicon.svg",
   },
